@@ -27,5 +27,10 @@ Style/TrailingBlankLines:
     - '**/Rakefile'
 
 Metrics/LineLength:
+  Max: 100
   Exclude:
     - '**/Gemfile'
+
+Style/AccessorMethodName:
+  Exclude:
+    - libraries/matchers.rb
