@@ -1,7 +1,11 @@
-RSpec.describe 'win_shadowcopy::default' do
+RSpec.describe 'testsetup::default' do
   include ChefRun
 
-  it 'converges successfully' do
-    expect(chef_run).to include_recipe(described_recipe)
+  it 'enables the default shadowcopy' do
+    expect(chef_run).to enable_win_shadowcopy('default')
+  end
+
+  it 'schedules the default shadowcopy' do
+    expect(chef_run).to schedule_win_shadowcopy('default')
   end
 end
