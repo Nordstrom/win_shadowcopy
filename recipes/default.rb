@@ -1,9 +1,14 @@
-#
-# Recipe: win_shadowcopy::default
-# Copyright (c) 2015 Nordstrom, Inc.
-#
+win_shadowcopy 'default' do
+  action :enable
+  shadowcopy_drivepath 'C:'
+  shadowcopy_maxsize '1024MB'
+  shadowcopy_storagepath 'C:'
+end
 
-# a common pattern is to seperate the cookbook into distinct
-# recipes and pull them all in via the default recipe
-# include_recipe 'win_shadowcopy::recipe_a'
-# include_recipe 'win_shadowcopy::recipe_b'
+win_shadowcopy 'default' do
+  action :schedule
+  schedule_ensure 'Present'
+  schedule_drivepath 'C:'
+  schedule_time '5:00PM'
+  schedule_taskname 'C_drive_VSS'
+end

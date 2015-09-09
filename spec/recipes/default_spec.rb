@@ -1,4 +1,4 @@
-RSpec.describe 'testsetup::default' do
+RSpec.describe 'win_shadowcopy::default' do
   include ChefRun
 
   it 'converges successfully' do
