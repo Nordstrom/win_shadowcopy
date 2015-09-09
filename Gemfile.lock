@@ -308,10 +308,10 @@ GEM
       sfl
     syslog-logger (1.6.8)
     systemu (2.6.5)
-    test-kitchen (1.4.2)
+    test-kitchen (1.4.1)
       mixlib-shellout (>= 1.2, < 3.0)
       net-scp (~> 1.1)
-      net-ssh (~> 2.7, < 2.10)
+      net-ssh (~> 2.7)
       safe_yaml (~> 1.0)
       thor (~> 0.18)
     thor (0.19.1)
@@ -380,7 +380,7 @@ DEPENDENCIES
   pry-stack_explorer (~> 0.4)
   rake (~> 10.4)
   rubocop (~> 0.31)
-  test-kitchen (~> 1.4)
+  test-kitchen (= 1.4.1)
   winrm-transport (~> 1.0)
 
 BUNDLED WITH
