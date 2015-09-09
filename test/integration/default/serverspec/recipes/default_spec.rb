@@ -4,13 +4,7 @@
 
 require 'spec_helper'
 
-# this is a generic ServerSpec test.  It just runs 'whoami'
-# and confirms that it returns 'root'.  In a real test suite,
-# you would want to test things like directories, users,
-# processes, services, etc.
-#
-# for more information on the things ServerSpec can test, refer
-# to the documentation at http://serverspec.org
-describe command('whoami') do
-  its(:stdout) { should eq "root\n" }
+describe command('$volume = ((gwmi win32_volume | ?{$_.DriveLetter -eq 'E:'} | select *).DeviceID).split('\')[3]; gwmi win32_shadowstorage | ?{$_.volume -match $volume}') do
+  its(:exit_status) { should eq 0 }
+  its(:stdout) { should match(/^E:/) }
 end

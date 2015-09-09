@@ -2,7 +2,17 @@
 
 ## Description
 
-...
+This is a resource cookbook that hosts a LWRP that supports configuration of
+Windows shadowcopy with the following (string) attributes:
+* drivepath
+* MaxSize
+* shadowcopy_storagepath
+And these (string) actions:
+* enable
+* schedule
+
+This LWRP leverages Microsoft DSC script to perform tasks, and may not work
+properly with older versions of Windows.  Your mileage may vary.
 
 ## Usage
 
