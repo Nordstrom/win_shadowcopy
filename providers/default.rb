@@ -19,7 +19,6 @@
 #
 
 include Chef::Mixin::ShellOut
-include Windows::Helper
 include Windows::Shadowcopy
 
 # Support whyrun
@@ -29,12 +28,22 @@ end
 
 use_inline_resources
 
-action :config do
+action :enable do
   if @current_resource.exists
     Chef::Log.info 'Already set - nothing to do.'
   else
     converge_by("Create #{@new_resource}") do
       enable_shadowcopy
+      new_resource.updated_by_last_action true
+    end
+  end
+end
+
+action :schedule do
+  if @current_resource.exists
+    Chef::Log.info 'Already set - nothing to do.'
+  else
+    converge_by("Create #{@new_resource}") do
       schedule_shadowcopy
       new_resource.updated_by_last_action true
     end
@@ -43,7 +52,7 @@ end
 
 # rubocop:disable AbcSize
 def load_current_resource
-  @current_resource = Chef::Resource::WseUtilShadowcopy.new(@new_resource.name)
+  @current_resource = Chef::Resource::WinShadowcopy.new(@new_resource.name)
   @current_resource.name(@new_resource.name)
   @current_resource.shadowcopy_drivepath(@new_resource.shadowcopy_drivepath)
   @current_resource.shadowcopy_maxsize(@new_resource.shadowcopy_maxsize)
@@ -52,6 +61,5 @@ def load_current_resource
   @current_resource.schedule_drivepath(@new_resource.schedule_drivepath)
   @current_resource.schedule_time(@new_resource.schedule_time)
   @current_resource.schedule_taskname(@new_resource.schedule_taskname)
-  @current_resource.exists = config_exists?(@current_resource.name)
 end
 # rubocop:enable AbcSize

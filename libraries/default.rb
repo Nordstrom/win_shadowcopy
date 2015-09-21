@@ -1,13 +1,13 @@
 module Windows
   # helpers for the win_shadowcopy LWRP
   module Shadowcopy
-    def config_exists?(*)
-      schedule_taskname = new_resource.schedule_taskname
-      @exists ||= begin
-        cmd = shell_out!("schtasks.exe /query | findstr \"#{schedule_taskname}\"")
-        cmd.stderr.empty? && cmd.stdout.include?(schedule_taskname)
-      end
-    end
+    # def config_exists?(*)
+    #   schedule_taskname = new_resource.schedule_taskname
+    #   @exists ||= begin
+    #     cmd = shell_out!("C:\\Windows\\system32\\schtasks.exe /query | findstr \"#{schedule_taskname}\"")
+    #     cmd.stderr.empty? && cmd.stdout.include?(schedule_taskname)
+    #   end
+    # end
 
     def enable_shadowcopy
       shadowcopy_drivepath = new_resource.shadowcopy_drivepath
@@ -15,7 +15,7 @@ module Windows
       shadowcopy_maxsize = new_resource.shadowcopy_maxsize
       dsc_script 'enable_shadowcopy' do
         code <<-EOH
-        cVSS SetShadowCopy{
+        cVSSSetShadowCopy{
             Drive = '#{shadowcopy_drivepath}'
             Enable = $True
             StorageLocation = '#{shadowcopy_storagepath}'
@@ -25,7 +25,7 @@ module Windows
       end
     end
 
-    def shadowcopy_schedtask
+    def schedule_shadowcopy
       schedule_drivepath = new_resource.schedule_drivepath
       schedule_time = new_resource.schedule_time
       schedule_ensure = new_resource.schedule_ensure
