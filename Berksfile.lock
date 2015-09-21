@@ -8,6 +8,6 @@ DEPENDENCIES
 GRAPH
   testsetup (0.0.0)
     win_shadowcopy (>= 0.0.0)
-  win_shadowcopy (0.1.10)
+  win_shadowcopy (0.1.11)
     wse_powershell_helper (~> 0.1)
   wse_powershell_helper (0.1.2)
