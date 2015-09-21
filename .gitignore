@@ -7,6 +7,6 @@
 .kitchen.local.yml
 .kitchen/
 .vagrant
-Berksfile.lock
 \#*#
 bin/*
+tmp

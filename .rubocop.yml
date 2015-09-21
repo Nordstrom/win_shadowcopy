@@ -31,6 +31,11 @@ Metrics/LineLength:
   Exclude:
     - '**/Gemfile'
 
+Metrics/MethodLength:
+  Max: 20
+  Exclude:
+    - '**/libraries/default.rb'
+
 Style/AccessorMethodName:
   Exclude:
     - libraries/matchers.rb

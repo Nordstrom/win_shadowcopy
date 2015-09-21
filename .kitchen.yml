@@ -7,8 +7,6 @@
 ---
 driver:
   name: vagrant
-  vagrantfiles:
-    - <%= File.expand_path(File.join(File.dirname(__FILE__), 'Vagrantfile_cdrom')) %>
 
 <% if proxy_vars.size > 0 %>
 driver_config:

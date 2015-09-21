@@ -18,6 +18,10 @@
 # limitations under the License.
 #
 
+include Chef::Mixin::ShellOut
+include Windows::Helper
+include Windows::Shadowcopy
+
 # Support whyrun
 def whyrun_supported?
   true
@@ -25,22 +29,12 @@ end
 
 use_inline_resources
 
-action :enable do
+action :config do
   if @current_resource.exists
     Chef::Log.info 'Already set - nothing to do.'
   else
     converge_by("Create #{@new_resource}") do
       enable_shadowcopy
-      new_resource.updated_by_last_action true
-    end
-  end
-end
-
-action :schedule do
-  if @current_resource.exists
-    Chef::Log.info 'Already set - nothing to do.'
-  else
-    converge_by("Create #{@new_resource}") do
       schedule_shadowcopy
       new_resource.updated_by_last_action true
     end
@@ -58,40 +52,6 @@ def load_current_resource
   @current_resource.schedule_drivepath(@new_resource.schedule_drivepath)
   @current_resource.schedule_time(@new_resource.schedule_time)
   @current_resource.schedule_taskname(@new_resource.schedule_taskname)
+  @current_resource.exists = config_exists?(@current_resource.name)
 end
 # rubocop:enable AbcSize
-
-# rubocop:disable MethodLength
-def enable_shadowcopy
-  shadowcopy_drivepath = new_resource.shadowcopy_drivepath
-  shadowcopy_storagepath = new_resource.shadowcopy_storagepath
-  shadowcopy_maxsize = new_resource.shadowcopy_maxsize
-  dsc_script 'enable_shadowcopy' do
-    code <<-EOH
-    cVSS SetShadowCopy{
-        Drive = '#{shadowcopy_drivepath}'
-        Enable = $True
-        StorageLocation = '#{shadowcopy_storagepath}'
-        MaxSize = '#{shadowcopy_maxsize}'
-     }
-     EOH
-  end
-end
-
-def schedule_shadowcopy
-  schedule_drivepath = new_resource.schedule_drivepath
-  schedule_time = new_resource.schedule_time
-  schedule_ensure = new_resource.schedule_ensure
-  schedule_taskname = new_resource.schedule_taskname
-  dsc_script 'schedule_shadowcopy' do
-    code <<-EOH
-      cVSSTaskScheduler ScheduleCopy{
-          TaskName = '#{schedule_taskname}'
-          Ensure =  '#{schedule_ensure}'
-          Drive = '#{schedule_drivepath}'
-          TriggerTime = '#{schedule_time}'
-      }
-     EOH
-  end
-end
-# rubocop:enable MethodLength
