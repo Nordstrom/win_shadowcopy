@@ -7,7 +7,7 @@ module Windows
       shadowcopy_maxsize = new_resource.shadowcopy_maxsize
       dsc_script 'enable_shadowcopy' do
         code <<-EOH
-        cVSSSetShadowCopy{
+        cVSS SetShadowCopy{
             Drive = '#{shadowcopy_drivepath}'
             Enable = $True
             StorageLocation = '#{shadowcopy_storagepath}'
