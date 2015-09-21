@@ -1,14 +1,6 @@
 module Windows
   # helpers for the win_shadowcopy LWRP
   module Shadowcopy
-    # def config_exists?(*)
-    #   schedule_taskname = new_resource.schedule_taskname
-    #   @exists ||= begin
-    #     cmd = shell_out!("C:\\Windows\\system32\\schtasks.exe /query | findstr \"#{schedule_taskname}\"")
-    #     cmd.stderr.empty? && cmd.stdout.include?(schedule_taskname)
-    #   end
-    # end
-
     def enable_shadowcopy
       shadowcopy_drivepath = new_resource.shadowcopy_drivepath
       shadowcopy_storagepath = new_resource.shadowcopy_storagepath
