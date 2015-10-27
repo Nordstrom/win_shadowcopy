@@ -1,10 +1,5 @@
 # Encoding: utf-8
-# Author:: Sandeep Bhat (<sandeep.s.bhat@nordstrom.com>) with
-
-# Cookbook Name:: win_shadowcopy
-# Provider:: shadowcopy
-#
-# Copyright:: 2015, Nordstrom, Inc.
+# Copyright 2015 Nordstrom, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -18,6 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
 
 actions :enable, :schedule
 default_action :enable
